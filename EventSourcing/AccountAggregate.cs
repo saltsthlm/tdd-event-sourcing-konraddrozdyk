@@ -14,6 +14,7 @@ public class AccountAggregate
   public AccountStatus Status { get; set; }
   public List<LogMessage>? AccountLog { get; set; }
   public CurrencyType NewCurrency { get; set; }
+  public decimal MaxBalance {get; set;}
 
     private AccountAggregate(){}
 
@@ -74,12 +75,13 @@ public class AccountAggregate
     Balance = accountCreated.InitialBalance;
     Currency = accountCreated.Currency;
     CustomerId = accountCreated.CustomerId;
+    MaxBalance = accountCreated.MaxBalance;
   }
 
   private void Apply(DepositEvent deposit)
   {
     if (AccountId == null) throw new EventTypeNotSupportedException("128*");
-    if (deposit.Amount > 100000) throw new MaxBalanceExceeded("281*");
+    if (deposit.Amount + Balance > MaxBalance) throw new MaxBalanceExceeded("281*");
     if (Status == AccountStatus.Disabled) throw new EventTypeNotSupportedException("344*");
     Balance += deposit.Amount;
     
