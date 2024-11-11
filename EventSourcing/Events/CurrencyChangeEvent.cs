@@ -10,4 +10,7 @@ public record CurrencyChangeEvent : Event
 
   [JsonPropertyName("currency")]
   public required CurrencyType Currency { get; init; }
+
+  [JsonPropertyName("newCurrency")]
+  public required CurrencyType NewCurrency {get; init; }
 }
