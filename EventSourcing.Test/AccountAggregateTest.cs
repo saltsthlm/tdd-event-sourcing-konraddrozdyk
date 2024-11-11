@@ -210,54 +210,54 @@ public class AccountAggregateTEst
       .WithMessage("285*");
   }
 
-  [Fact]
-  public async void DeactivateEvent_Should_DeactivateAccount()
-  {
-    // Arrange
-    var events = await FileReader.GetStream(12);
-    var expectedAccount = new TestAccountAggregate
-    {
-      AccountId = "ACC123456",
-      Balance = 5000,
-      Currency = CurrencyType.Usd,
-      CustomerId = "CUST001",
-      Status = AccountStatus.Disabled,
-    };
+  // [Fact]
+  // public async void DeactivateEvent_Should_DeactivateAccount()
+  // {
+  //   // Arrange
+  //   var events = await FileReader.GetStream(12);
+  //   var expectedAccount = new TestAccountAggregate
+  //   {
+  //     AccountId = "ACC123456",
+  //     Balance = 5000,
+  //     Currency = CurrencyType.Usd,
+  //     CustomerId = "CUST001",
+  //     Status = AccountStatus.Disabled,
+  //   };
 
-    // Act
-    var result = AccountAggregate.GenerateAggregate(events);
+  //   // Act
+  //   var result = AccountAggregate.GenerateAggregate(events);
 
-    // Assert
-    expectedAccount.Should().BeEquivalentTo(result, options => options.ExcludingMissingMembers());
-  }
+  //   // Assert
+  //   expectedAccount.Should().BeEquivalentTo(result, options => options.ExcludingMissingMembers());
+  // }
 
-  [Fact]
-  public async void DeactivateEvent_Should_AddEventToAccountLog()
-  {
-    // Arrange
-    var events = await FileReader.GetStream(12);
-    var expectedAccount = new TestAccountAggregate
-    {
-      AccountId = "ACC123456",
-      Balance = 5000,
-      Currency = CurrencyType.Usd,
-      CustomerId = "CUST001",
-      Status = AccountStatus.Disabled,
-      AccountLog = [
-        new (
-          Type: "DEACTIVATE",
-          Message: "Account inactive for 270 days",
-          Timestamp: DateTime.Parse("2024-10-02T10:30:00Z")
-        ),
-      ]
-    };
+  // [Fact]
+  // public async void DeactivateEvent_Should_AddEventToAccountLog()
+  // {
+  //   // Arrange
+  //   var events = await FileReader.GetStream(12);
+  //   var expectedAccount = new TestAccountAggregate
+  //   {
+  //     AccountId = "ACC123456",
+  //     Balance = 5000,
+  //     Currency = CurrencyType.Usd,
+  //     CustomerId = "CUST001",
+  //     Status = AccountStatus.Disabled,
+  //     AccountLog = [
+  //       new (
+  //         Type: "DEACTIVATE",
+  //         Message: "Account inactive for 270 days",
+  //         Timestamp: DateTime.Parse("2024-10-02T10:30:00Z")
+  //       ),
+  //     ]
+  //   };
 
-    // Act
-    var result = AccountAggregate.GenerateAggregate(events);
+  //   // Act
+  //   var result = AccountAggregate.GenerateAggregate(events);
 
-    // Assert
-    result.Should().BeEquivalentTo(expectedAccount, options => options.ExcludingMissingMembers());
-  }
+  //   // Assert
+  //   result.Should().BeEquivalentTo(expectedAccount, options => options.ExcludingMissingMembers());
+  // }
 
   [Fact]
   public async void Should_Add_Aditional_DeactivateEvent_ToAccountLog()

@@ -33,7 +33,7 @@ public class AccountAggregate
 
   private void Apply(Event accountEvent)
   {
-    if (Status == AccountStatus.Closed) throw new EventTypeNotSupportedException("502*");
+    if (Status == AccountStatus.Closed) throw new TransactionRejectedAccountDeactivatedException("502*");
     switch (accountEvent)
     {
       case AccountCreatedEvent accountCreated:
@@ -82,7 +82,7 @@ public class AccountAggregate
   private void Apply(WithdrawalEvent withdrawal)
   {
     if (AccountId == null) throw new EventTypeNotSupportedException("128*");
-    if (withdrawal.amount > Balance) throw new MaxBalanceExceeded("285*");
+    if (withdrawal.amount > Balance) throw new BalanceInNegativeException("285*");
     if (Status == AccountStatus.Disabled) throw new Exception("344*");
     Balance -= withdrawal.amount;
   }
