@@ -26,7 +26,7 @@ public class AccountAggregate
 
     if (events[^1].EventId != events.Length)
     {
-      throw new Exception("511*");
+      throw new InvalidEventStreamException("511*");
     }
     var account = new AccountAggregate();
     foreach (var accountEvent in events)
