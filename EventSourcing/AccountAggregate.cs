@@ -33,7 +33,7 @@ public class AccountAggregate
 
   private void Apply(Event accountEvent)
   {
-    if (Status == AccountStatus.Closed) throw new TransactionRejectedAccountDeactivatedException("502*");
+    if (Status == AccountStatus.Closed) throw new AccountClosedException("502*");
     switch (accountEvent)
     {
       case AccountCreatedEvent accountCreated:
