@@ -68,6 +68,7 @@ public class AccountAggregate
 
   private void Apply(WithdrawalEvent wihdrawal)
   {
+    if (AccountId == null) throw new EventTypeNotSupportedException("128*");
     Balance -= wihdrawal.amount;
   }
 
