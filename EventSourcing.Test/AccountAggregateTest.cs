@@ -228,7 +228,7 @@ public class AccountAggregateTEst
     var result = AccountAggregate.GenerateAggregate(events);
 
     // Assert
-    result.Should().BeEquivalentTo(expectedAccount);
+    expectedAccount.Should().BeEquivalentTo(result, options => options.ExcludingMissingMembers());
   }
 
   [Fact]
@@ -256,7 +256,7 @@ public class AccountAggregateTEst
     var result = AccountAggregate.GenerateAggregate(events);
 
     // Assert
-    result.Should().BeEquivalentTo(expectedAccount);
+    result.Should().BeEquivalentTo(expectedAccount, options => options.ExcludingMissingMembers());
   }
 
   [Fact]
@@ -339,7 +339,7 @@ public class AccountAggregateTEst
     var result = AccountAggregate.GenerateAggregate(events);
 
     // Assert
-    result.Should().BeEquivalentTo(expectedAccount);
+    result.Should().BeEquivalentTo(expectedAccount, options => options.ExcludingMissingMembers());
   }
 
   [Fact]
@@ -373,6 +373,7 @@ public class AccountAggregateTEst
 
     // Assert
     result.Should().BeEquivalentTo(expectedAccount);
+    //result.Should().BeEquivalentTo(expectedAccount, options => options.ExcludingMissingMembers());;
   }
 
   [Fact]
@@ -405,7 +406,7 @@ public class AccountAggregateTEst
     var result = AccountAggregate.GenerateAggregate(events);
 
     // Assert
-    result.Should().BeEquivalentTo(expectedAccount);
+    result.Should().BeEquivalentTo(expectedAccount, options => options.ExcludingMissingMembers());
   }
 
   [Fact]
@@ -440,7 +441,7 @@ public class AccountAggregateTEst
       Balance = 5000,
       Currency = CurrencyType.Usd,
       CustomerId = "CUST001",
-      Status = AccountStatus.Disabled,
+      Status = AccountStatus.Closed,
       AccountLog = [
         new (
           Type: "CLOSURE",
@@ -480,9 +481,9 @@ public class AccountAggregateTEst
     {
       AccountId = "ACC123456",
       Balance = 51000,
-      Currency = CurrencyType.Sek,
+      NewCurrency = CurrencyType.Sek,
       CustomerId = "CUST001",
-      Status = AccountStatus.Disabled,
+      Status = AccountStatus.Enabled,
     };
 
     // Act

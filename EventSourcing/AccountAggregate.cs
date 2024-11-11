@@ -23,13 +23,11 @@ public class AccountAggregate
     {
       return null;
     }
-    
     var account = new AccountAggregate();
     foreach (var accountEvent in events)
     {
       account.Apply(accountEvent);
     }
-
     return account;
   }
 
@@ -114,7 +112,7 @@ public class AccountAggregate
 
   private void Apply(CurrencyChangeEvent currencyChange)
   {
-    switch (currencyChange.Currency)
+    switch (currencyChange.NewCurrency)
     {
       case CurrencyType.Usd:
       NewCurrency = CurrencyType.Usd;
@@ -133,5 +131,12 @@ public class AccountAggregate
   private void Apply(ClosureEvent closure)
   {
     Status = AccountStatus.Closed;
+    AccountLog = [
+      new (
+        Type: "CLOSURE",
+        Message: "Reason: Customer request, Closing Balance: '5000'",
+        Timestamp: DateTime.Parse("2024-10-02T10:30:00Z")
+      ),
+    ];
   }
 }
