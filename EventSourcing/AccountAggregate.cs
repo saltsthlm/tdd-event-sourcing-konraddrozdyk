@@ -57,7 +57,10 @@ public class AccountAggregate
 
   private void Apply(DepositEvent deposit)
   {
+    if (AccountId == null) throw new EventTypeNotSupportedException("128*");
+    if (deposit.Amount > 100000) throw new MaxBalanceExceeded("281*");
     Balance += deposit.Amount;
+    
   }
 
   private void Apply(WithdrawalEvent wihdrawal)
