@@ -74,6 +74,7 @@ public class AccountAggregate
   {
     if (AccountId == null) throw new EventTypeNotSupportedException("128*");
     if (withdrawal.amount > Balance) throw new MaxBalanceExceeded("285*");
+    if (Status == AccountStatus.Disabled) throw new Exception("344*");
     Balance -= withdrawal.amount;
   }
 
