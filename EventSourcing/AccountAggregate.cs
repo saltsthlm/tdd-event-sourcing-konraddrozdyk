@@ -23,6 +23,11 @@ public class AccountAggregate
     {
       return null;
     }
+
+    if (events[^1].EventId != events.Length)
+    {
+      throw new Exception("511*");
+    }
     var account = new AccountAggregate();
     foreach (var accountEvent in events)
     {
@@ -34,6 +39,7 @@ public class AccountAggregate
   private void Apply(Event accountEvent)
   {
     if (Status == AccountStatus.Closed) throw new AccountClosedException("502*");
+    
     switch (accountEvent)
     {
       case AccountCreatedEvent accountCreated:
@@ -134,7 +140,7 @@ public class AccountAggregate
         Timestamp: DateTime.Parse("2024-10-02T10:30:00Z")
       ),
     ];
-    
+
   }
 
   private void Apply(ClosureEvent closure)
