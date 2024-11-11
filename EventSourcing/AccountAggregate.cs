@@ -24,7 +24,6 @@ public class AccountAggregate
     {
       return null;
     }
-
     if (events[^1].EventId != events.Length)
     {
       throw new InvalidEventStreamException("511*");
@@ -98,6 +97,7 @@ public class AccountAggregate
   private void Apply(DeactivationEvent deactivation)
   {
     Status = AccountStatus.Disabled;
+    // TODO: Add a dynamic method for logging
     AccountLog = [
       new (
         Type: "DEACTIVATE",
@@ -120,6 +120,7 @@ public class AccountAggregate
 
   private void Apply(CurrencyChangeEvent currencyChange)
   {
+    // TODO: Add a exchange for each currency
     switch (currencyChange.NewCurrency)
     {
       case CurrencyType.Usd:
@@ -148,6 +149,7 @@ public class AccountAggregate
   private void Apply(ClosureEvent closure)
   {
     Status = AccountStatus.Closed;
+    // TODO: Add a dynamic method for logging
     AccountLog = [
       new (
         Type: "CLOSURE",
