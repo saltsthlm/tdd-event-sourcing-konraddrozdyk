@@ -13,4 +13,5 @@ public record DepositEvent : Event
 
   [JsonPropertyName("currency")]
   public required CurrencyType Currency { get; init; }
+  
 }
