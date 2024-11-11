@@ -66,10 +66,11 @@ public class AccountAggregate
     
   }
 
-  private void Apply(WithdrawalEvent wihdrawal)
+  private void Apply(WithdrawalEvent withdrawal)
   {
     if (AccountId == null) throw new EventTypeNotSupportedException("128*");
-    Balance -= wihdrawal.amount;
+    if (withdrawal.amount > Balance) throw new MaxBalanceExceeded("285*");
+    Balance -= withdrawal.amount;
   }
 
   private void Apply(DeactivationEvent deactivation)
