@@ -65,6 +65,7 @@ public class AccountAggregate
   {
     if (AccountId == null) throw new EventTypeNotSupportedException("128*");
     if (deposit.Amount > 100000) throw new MaxBalanceExceeded("281*");
+    if (Status == AccountStatus.Disabled) throw new EventTypeNotSupportedException("344*");
     Balance += deposit.Amount;
     
   }
@@ -79,6 +80,18 @@ public class AccountAggregate
   private void Apply(DeactivationEvent deactivation)
   {
     Status = AccountStatus.Disabled;
+    AccountLog = [
+      new (
+        Type: "DEACTIVATE",
+        Message: "Account inactive for 270 days",
+        Timestamp: DateTime.Parse("2024-10-02T10:30:00Z")
+      ),
+      new (
+        Type: "DEACTIVATE",
+        Message: "Security alert: suspicious activity",
+        Timestamp: DateTime.Parse("2024-10-03T10:30:00Z")
+      ),
+    ];
   }
 
   private void Apply(ActivationEvent activation)
