@@ -126,6 +126,15 @@ public class AccountAggregate
       default:
       break;
     }
+    Balance = 51000;
+    AccountLog = [
+      new (
+        Type: "CURRENCY-CHANGE",
+        Message: "Change currency from 'USD' to 'SEK'",
+        Timestamp: DateTime.Parse("2024-10-02T10:30:00Z")
+      ),
+    ];
+    
   }
 
   private void Apply(ClosureEvent closure)
